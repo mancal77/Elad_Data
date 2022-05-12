@@ -5,7 +5,7 @@
 2. Which file format would you output the data in?
 
    I decided to use Parquet file format, which is very efficient in storage and processing.
-   Parquet is columnar storage optimised, and I assumed the analytics may be done only on specific stocks,
+   Parquet is columnar storage, and I assumed the analytics may be done only on subset of the stocks,
    which means only part of the columns will be frequently accessed in queries. 
 
 3. What were your considerations while deciding on the partition strategy?
@@ -18,8 +18,9 @@
 4. What would be your error handling strategy?
 
    I use try-except statements, when making an API call. I also validate the size of the received data. I print error messages, if the ingestion fails.
-   It is reasonable to try to repeat external API requests, if it fails. Since EOD stocks data is ingested, it makes sense to perform batch processing
-   at the end of the trading day. Yfinance API call, may fail due to their server availability for example.
+   It is also reasonable to try to repeat external API requests, if it fails. 
+   Since EOD stocks data is ingested, it makes sense to perform batch processing at the end of the trading day.
+   Yfinance API call, may fail due to their server availability for example.
    It is possible to set the number of tries for the step with flow control tool e.g. Airflow and repeat the step, in case of failure.
    
 5. What would be the benefits of using multithreaded / multiprocessors technics and how would you implement them?
