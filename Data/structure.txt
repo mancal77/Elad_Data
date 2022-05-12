@@ -1,1 +1,3 @@
 
+First level Partitioning is done by Year: Data -> tickers_partitioned.parquet -> Year=YYYY folders
+Second level is done by Month: Data -> tickers_partitioned.parquet -> Year=XXXX -> Month=Mmmmm folders
