@@ -6,7 +6,8 @@
 
    I decided to use Parquet file format, which is very efficient in storage and processing.
    Parquet is columnar storage, and I assumed the analytics may be done only on subset of the stocks,
-   which means only part of the columns will be frequently accessed in queries. 
+   which means only part of the columns will be frequently accessed in queries.
+   The metadata is stored in the data file, so it is possible to extract the table's schema from a Parquet file.
 
 3. What were your considerations while deciding on the partition strategy?
 
