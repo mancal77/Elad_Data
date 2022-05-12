@@ -1,0 +1,29 @@
+1. How would you partition the data?
+   
+   I decided to partition the data according to the Year and the Month of the trading date.
+   
+2. Which file format would you output the data in?
+
+   I decided to use Parquet file format, which is very efficient in storage and processing.
+   Parquet is columnar storage optimised, and I assumed the analytics may be done only on specific stocks,
+   which means only part of the columns will be frequently accessed in queries. 
+
+3. What were your considerations while deciding on the partition strategy?
+
+   Partitioning will likely depend on the most common predicate, used in the queries, analyzing the data.
+   Since i don't have that information, I used my common sense and decided to use the Year and Month of the trading day.
+   I assumed different stocks may be compared in the same query, and time period charts are commonly used,
+   so it would be reasonable to use the Year and Month, resulting in around 60 partitions with around 700kb files.
+   
+4. What would be your error handling strategy?
+
+   I use try-except statements, when making an API call. I also validate the size of the received data. I print error messages, if the ingestion fails.
+   It is reasonable to try to repeat external API requests, if it fails. Since EOD stocks data is ingested, it makes sense to perform batch processing
+   at the end of the trading day. Yfinance API call, may fail due to their server availability for example.
+   It is possible to set the number of tries for the step with flow control tool e.g. Airflow and repeat the step, in case of failure.
+   
+5. What would be the benefits of using multithreaded / multiprocessors technics and how would you implement them?
+
+   I make a single API call with a full list of tickers. The Yfinance API has "use threads for mass downloading?" option, which is set to true. 
+   I suggest using Hadoop cluster, and storing the data in HDFS as a permanent solution.
+   Hadoop ecosystem will provide the tools for distributed and parallel processing of the data.
